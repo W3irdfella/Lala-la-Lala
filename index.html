@@ -24,13 +24,13 @@
     padding: 25px;
     border-radius: 20px;
     width: 90%;
-    max-width: 340px;
+    max-width: 360px;
     position: relative;
     z-index: 2;
   }
 
   button {
-    padding: 12px 20px;
+    padding: 12px 22px;
     margin: 8px;
     border: none;
     border-radius: 20px;
@@ -55,9 +55,17 @@
     min-height: 26px;
   }
 
+  #finalMsg {
+    display: none;
+    margin-top: 14px;
+    font-size: 1rem;
+    line-height: 1.7;
+    animation: fadeIn 1.2s ease forwards;
+  }
+
   img {
     display: none;
-    margin-top: 15px;
+    margin-top: 16px;
     width: 200px;
     border-radius: 12px;
     animation: pop 0.6s ease;
@@ -68,7 +76,11 @@
     to { transform: scale(1); opacity: 1; }
   }
 
-  /* Hearts */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   .heart {
     position: fixed;
     color: rgba(255,255,255,0.8);
@@ -95,6 +107,24 @@
 
   <div id="text"></div>
 
+  <div id="finalMsg">
+    Ovenii 💖<br>
+    This <b>is our last Valentine</b> as boyfriend and girlfriend…  
+    and somehow, that makes this one feel even more special 🥹💘<br><br>
+
+    Because very soon, I won’t just call you my girlfriend —  
+    I’ll proudly call you my <b>wife</b> 💍❤️<br><br>
+
+    Thank you for loving me on my best days  
+    and choosing me even on my worst ones.  
+    Thank you for being my calm, my chaos,  
+    my safe place, and my forever person 💕<br><br>
+
+    I’d choose you in every lifetime,  
+    in every version of us,  
+    again and again — without hesitation 💖
+  </div>
+
   <img id="gif"
     src="https://media.giphy.com/media/13CoXDiaCcCoyk/giphy.gif"
     alt="Minions Yay">
@@ -112,6 +142,12 @@
     "We both know the answer 💘"
   ];
 
+  const yesMessages = [
+    "Hmm… say it again 😏",
+    "I’m listening 👀",
+    "One more time maybe? 😌"
+  ];
+
   function move(btn) {
     btn.style.transform =
       `translate(${Math.random()*120-60}px, ${Math.random()*80-40}px)`;
@@ -120,7 +156,6 @@
   function noClick() {
     const btn = document.getElementById("noBtn");
     move(btn);
-
     document.getElementById("text").innerText =
       noMessages[Math.floor(Math.random() * noMessages.length)];
   }
@@ -128,20 +163,18 @@
   function yesClick() {
     const btn = document.getElementById("yesBtn");
     move(btn);
-
     yesCount++;
 
     if (yesCount < 4) {
       document.getElementById("text").innerText =
-        `Almost there 😏 YES (${yesCount}/4)`;
+        yesMessages[yesCount - 1];
       return;
     }
 
     // FINAL YES
-    document.getElementById("text").innerText =
-      "YAYYYYY!! 💖🎉 Happy Valentine’s Day, Ovenii 😍";
-
+    document.getElementById("text").innerText = "YAYYYYY!! 💖🎉";
     document.getElementById("gif").style.display = "block";
+    document.getElementById("finalMsg").style.display = "block";
     document.getElementById("noBtn").style.display = "none";
     btn.disabled = true;
 
