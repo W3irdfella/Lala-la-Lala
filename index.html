@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Ovenii ❤️</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .box {
+    background: rgba(255,255,255,0.2);
+    padding: 25px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 340px;
+    position: relative;
+    z-index: 2;
+  }
+
+  button {
+    padding: 12px 20px;
+    margin: 8px;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .yes {
+    background: white;
+    color: #ff4d6d;
+  }
+
+  .no {
+    background: #ff4d6d;
+    color: white;
+    position: relative;
+  }
+
+  #text {
+    margin-top: 12px;
+    min-height: 26px;
+  }
+
+  img {
+    display: none;
+    margin-top: 15px;
+    width: 200px;
+    border-radius: 12px;
+    animation: pop 0.6s ease;
+  }
+
+  @keyframes pop {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  /* Hearts */
+  .heart {
+    position: fixed;
+    color: rgba(255,255,255,0.8);
+    font-size: 18px;
+    animation: fall 4s linear forwards;
+    z-index: 1;
+  }
+
+  @keyframes fall {
+    from { top: -10vh; opacity: 1; }
+    to { top: 110vh; opacity: 0; }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>Ovenii 💖</h2>
+  <p>Will you be my Valentine?</p>
+
+  <button class="yes" id="yesBtn" onclick="yesClick()">Yes ❤️</button>
+  <button class="no" id="noBtn" onclick="noClick()">No 😒</button>
+
+  <div id="text"></div>
+
+  <img id="gif"
+    src="https://media.giphy.com/media/13CoXDiaCcCoyk/giphy.gif"
+    alt="Minions Yay">
+</div>
+
+<script>
+  let yesCount = 0;
+
+  const noMessages = [
+    "Nice try 😂",
+    "Wrong answer 🙃",
+    "That button is broken 😌",
+    "You sure about that? 😏",
+    "Still no? Try again 😜",
+    "We both know the answer 💘"
+  ];
+
+  function move(btn) {
+    btn.style.transform =
+      `translate(${Math.random()*120-60}px, ${Math.random()*80-40}px)`;
+  }
+
+  function noClick() {
+    const btn = document.getElementById("noBtn");
+    move(btn);
+
+    document.getElementById("text").innerText =
+      noMessages[Math.floor(Math.random() * noMessages.length)];
+  }
+
+  function yesClick() {
+    const btn = document.getElementById("yesBtn");
+    move(btn);
+
+    yesCount++;
+
+    if (yesCount < 4) {
+      document.getElementById("text").innerText =
+        `Almost there 😏 YES (${yesCount}/4)`;
+      return;
+    }
+
+    // FINAL YES
+    document.getElementById("text").innerText =
+      "YAYYYYY!! 💖🎉 Happy Valentine’s Day, Ovenii 😍";
+
+    document.getElementById("gif").style.display = "block";
+    document.getElementById("noBtn").style.display = "none";
+    btn.disabled = true;
+
+    startHearts();
+  }
+
+  function startHearts() {
+    for (let i = 0; i < 30; i++) {
+      setTimeout(() => {
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.innerText = "❤️";
+        h.style.left = Math.random() * 100 + "vw";
+        h.style.fontSize = Math.random() * 20 + 12 + "px";
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 4000);
+      }, i * 120);
+    }
+  }
+</script>
+
+</body>
+</html>
